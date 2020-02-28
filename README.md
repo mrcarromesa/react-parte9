@@ -1,68 +1,89 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1>Projeto com ReactJS Parte 1 (Inicio)</h1>
 
-## Available Scripts
+- Criar projeto:
 
-In the project directory, you can run:
+```bash
+yarn create react-app NOME_DO_PROJETO
+```
 
-### `yarn start`
+- Depois de criado acessar a pasta
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- E abrir no vscode
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- no `package.json`, remover as configurações do eslint. `eslintConfig`
 
-### `yarn test`
+- pois depois será configurado do zero.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `yarn build`
+<h2>Remover do arquivo public/index.html</h2>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Pode ser removido os comentarios, deixando o código bem mais limpo
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Remover ainda `<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />`, que é utilizado por pwa
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Remover também `<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />`, que é utilizado por pwa;
 
-### `yarn eject`
+- Remover as imagens `public/logo192.png` e `public/logo512.png` que também é para pwa;
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Também pode apagar o arquivo de `public/manifest.json`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- E remover o arquivo `public/robots.txt`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<h2>Executar o projeto</h2>
 
-## Learn More
+- Executar o comando:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+yarn start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+<h2>Remover mais alguns arquivos da pasta src/</h2>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- App.css
 
-### Analyzing the Bundle Size
+- App.test.js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- index.css
 
-### Making a Progressive Web App
+- logo.svg
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- serviceWorker.js
 
-### Advanced Configuration
+- setupTests.js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- Agora é necessário remover a referencia a esses arquivos:
 
-### Deployment
+- No index.js remover as partes: 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```js
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+```
 
-### `yarn build` fails to minify
+- A importação:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```js
+import * as serviceWorker from './serviceWorker';
+```
+
+- A importação:
+
+```js
+import './index.css';
+```
+
+- Arquvio `App.js` remover as importações:
+
+```js
+import logo from './logo.svg';
+import './App.css';
+```
+
+- Ainda nesse arquivo remover o conteúdo dentro de `<div className="App">`
