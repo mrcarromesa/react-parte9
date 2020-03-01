@@ -1,89 +1,163 @@
-<h1>Projeto com ReactJS Parte 1 (Inicio)</h1>
+<h1>Configurando o ESLint, Prettier, Editor Config</h1>
 
-- Criar projeto:
+<strong>Instalar Plugins no VSCode</strong>
+* [ESLint - Code Style Guide](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+* [EditorConfig for VS Code - Manter padrão para outras ides](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
-```bash
-yarn create react-app NOME_DO_PROJETO
+* Gerar arquivo ```.editorconfig``` com o seguinte conteúdo:
+
+```
+root = true
+
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
 ```
 
-- Depois de criado acessar a pasta
-
-- E abrir no vscode
-
-- no `package.json`, remover as configurações do eslint. `eslintConfig`
-
-- pois depois será configurado do zero.
 
 ---
 
-<h2>Remover do arquivo public/index.html</h2>
+<h2>ESLint</h2>
 
-- Pode ser removido os comentarios, deixando o código bem mais limpo
 
-- Remover ainda `<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />`, que é utilizado por pwa
+- Add Eslint:
 
-- Remover também `<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />`, que é utilizado por pwa;
+```bash
+yarn add eslint -D
+```
 
-- Remover as imagens `public/logo192.png` e `public/logo512.png` que também é para pwa;
+- Iniciar/configurar o eslint:
 
-- Também pode apagar o arquivo de `public/manifest.json`
+```bash
+yarn eslint --init
+```
 
-- E remover o arquivo `public/robots.txt`
+- `How would you like to use ESLint?` Seleciona a opção:
 
----
+```
+To check syntax, find problems, and enforce code style
+```
 
-<h2>Executar o projeto</h2>
+- `What type of modules does your project use?` Selecione a opção:
+
+```
+JavaScript modules (import/export)
+```
+
+- `Which framework does your project use?` Selecione a opção:
+
+```
+React
+```
+
+- `Does your project use TypeScript?` Selecione a opção:
+
+```
+N
+```
+
+- `Where does your code run?` Selecione a opção:
+
+```
+Browser
+```
+
+- `How would you like to define a style for your project?` Selecione a opção:
+
+```
+Use a popular style guide
+```
+
+- `Which style guide do you want to follow? ` Selecione a opção:
+
+```
+Airbnb: https://github.com/airbnb/javascript
+```
+
+- `What format do you want your config file to be in?` Selecione a opção:
+
+```
+JavaScript
+```
+
+- `Would you like to install them now with npm?` Selecione a opção:
+
+```
+Y
+```
+
+- Remover o arquivo `package-lock.json`
 
 - Executar o comando:
 
 ```bash
-yarn start
+yarn
 ```
+
 
 ---
 
-<h2>Remover mais alguns arquivos da pasta src/</h2>
+<h2>Prettier</h2>
 
-- App.css
+- Instalar os módulos:
 
-- App.test.js
-
-- index.css
-
-- logo.svg
-
-- serviceWorker.js
-
-- setupTests.js
-
-- Agora é necessário remover a referencia a esses arquivos:
-
-- No index.js remover as partes: 
-
-```js
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+```bash
+yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
 ```
 
-- A importação:
+- Realizar algumas configurações no arquivo `.eslintrc.js`, inserir o seguinte conteúdo:
 
 ```js
-import * as serviceWorker from './serviceWorker';
+module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+  },
+  extends: [
+    'plugin:react/recommended',
+    'airbnb',
+    'prettier',
+    'prettier/react',
+  ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  plugins: [
+    'react',
+    'prettier',
+  ],
+  rules: {
+    'prettier/prettier': 'error',
+    'react/jsx-filename-extension': [
+      'warn',
+      { extensions: ['.jsx', '.js']}
+    ],
+    'import/prefer-default-export': 'off'
+  },
+};
+
 ```
 
-- A importação:
+- Criar o arquivo `.prettierrc` com o seguinte conteúdo:
 
 ```js
-import './index.css';
+{
+  "singleQuote": true,
+  "trailingComman": "es5"
+}
+
 ```
-
-- Arquvio `App.js` remover as importações:
-
-```js
-import logo from './logo.svg';
-import './App.css';
-```
-
-- Ainda nesse arquivo remover o conteúdo dentro de `<div className="App">`
