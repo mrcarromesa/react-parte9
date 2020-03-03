@@ -1,36 +1,49 @@
-<h1>Router</h1>
+<h1>Styled Components</h1>
 
-- Instalar:
+- Instalar styled components:
 
 ```bash
-yarn add react-router-dom
+yarn add styled-components
 ```
 
-- Criar o arquivo `src/routes.js`
+- Permite o css ficar "escopado", basicamente o css não será compartilhado com
+outros componentes
 
-- No arquivo `src/routes.js`, `import { BrowserRouter, Switch, Route } from 'react-router-dom';`
+- Instalar a extensão, para que o vscode entenda css dentro do javascript:
 
-- O `BrowserRouter` utilizado para permitir que as urls sejam feitas com `/`, existem outras que são feitas com `#`
+- [styled-components](https://marketplace.visualstudio.com/items?itemName=jpoissonnier.vscode-styled-components)
 
-- O `Switch` utilizado para renderizar uma página por vez
 
-- Para utilizar a Rota principal utilizando apenas "`/`" é necessário adicionar a propriedade `exact`, pois o react irá considerar a rota que contem o que está definido então para contornar isso utiliza essa propriedade:
+- Criar o arquivo `src/pages/Main/style.js`
+
+- Basicamente criar um novo componet:
 
 ```js
-<Route path="/" exact component={Main} />
+export const Title = styled.h1`//aqui ficara o css do elemento e de seus subelementos`
 ```
 
-- Criar a pasta `src/pages/`
+- Css para subelementos:
 
-- Criar o arquivo `src/pages/Main/index.js`
+```js
+export const Title = styled.h1`
+  //... css elemento principal
+  small {
+    // propriedades aqui.
+  }
+`
+```
 
-- Criar a pasta `src/pages/Repository/index.js`
+- Quando precisar utilizar o componet estilizado apenas chama-lo em outro js com o nome do componente, no caso acima seria `<Title></Title>`
 
 
----
+- Algo bem interessante é que é possível mudar o style conforme o props do component no arquivo `src/pages/Main/style.js`:
 
-<strong>Instalar extension</strong>
+```js
+color: ${props => (props.error ? 'red' : '#7159c1')};
+```
 
-- [rfc](https://marketplace.visualstudio.com/items?itemName=rocketseat.RocketseatReactJS)
+- E no arquivo `src/pages/Main/index.js`:
 
-- no arquivo js só digitar `rfc`
+```js
+<Title error>Main</Title>
+```
