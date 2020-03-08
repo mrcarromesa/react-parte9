@@ -1,21 +1,24 @@
-<h1>Estilização na prática 2</h1>
+<h1>Salvar os dados em localstorage</h1>
 
-- Flex
-
-- Utilizar espaço entre conteúdo horizontal:
+- No arquivo `src/pages/Main/index.js` adicionar os seguintes metodos
 
 ```js
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-```
+//  carregar dados do localstorage
+componentDidMount() {
+  const repositories = localStorage.getItem('repositories');
 
-- a propriedade `justify-content: space-between`, faz com que o primeiro componente fique a esquerda e o segundo a direita, ou caso haja mais que 2 componentes irá aplicar espaços iguais para eles.
+  if (repositories) {
+    this.setState({
+      repositories: JSON.parse(repositories)
+    });
+  }
+}
 
-- Aplicar estilização em todos menos no primeiro exemplo:
-
-```js
-& + li {
-  //...
+// salvar os dados do localstorage
+componentDidUpdate(_, prevState) {
+  const { repositories } = this.state;
+  if (prevState.repositories !== repositories) {
+    localStorage.setItem('repositories', JSON.stringify(repositories));
+  }
 }
 ```
